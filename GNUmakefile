@@ -14,4 +14,7 @@ test:
 	@ ( \
 		bash -c "echo $(shell pi-clang)" \
 )
+test2:
+	@echo $(shell pi-gcc   11111) | sed 's/\./_/'
+	@echo $(shell pi-clang 11111) | sed 's/\./_/'
 
