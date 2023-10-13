@@ -64,7 +64,7 @@ void print(unsigned short *pi, int n, int offset) {
  * we are only concerned with mantissa
   printf("%d.", pi[1]);
 */
-  for (i=2; i<n-1; ++i)
+  for (i=2+offset; i<n-1; ++i)
     printf("%04d", pi[i]);
   printf("\n");
 }
@@ -140,13 +140,13 @@ TODO:
   }
 
   if (argc == 3){
-	  printf("argc=3\n");
-	  printf("%d\n", atoi(argv[2]));
+	  // printf("argc=3\n");
+	  // printf("%d\n", atoi(argv[2]));
 	  offset = atoi(argv[2]);
 	  n = argc == 2 ? (atoi(argv[1]) + offset)/4 + offset : 360;  /* 360 default number of pi digits */
-	  printf("offset=%d\n", offset);
+	  // printf("offset=%d mod 4?\n", offset);
 	  n += offset;
-	  printf("n=%d\n", n);
+	  // printf("n=%d\n", n);
   }
 
   unsigned short *pi = (unsigned short*) malloc(n * sizeof(unsigned short));
