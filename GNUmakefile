@@ -10,8 +10,8 @@ clang:
 	@install ./pi-$@ /usr/local/bin/ || $(shell which pi-$@)
 	@##@file pi-$@
 test-all:
-	@$(MAKE)   gcc-test
-	@$(MAKE) clang-test
+	@echo "gcc-test"   && $(MAKE)   gcc-test
+	@echo "clang-test" && $(MAKE) clang-test
 test:gcc-test
 gcc-test:-
 	@install ./pi-gcc /usr/local/bin/
