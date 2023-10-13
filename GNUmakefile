@@ -2,11 +2,11 @@
 ##default gcc
 .PHONY:gcc clang
 gcc:
-	@$@ pi.c -o pi-$@ || $(shell which $@)
+	@$@ src/pi.c -o pi-$@ || $(shell which $@)
 	@install ./pi-$@ /usr/local/bin/ || $(shell which pi-$@)
 	@##@file pi-$@
 clang:
-	@$@ pi.c -o pi-$@ || $(shell which $@)
+	@$@ src/pi.c -o pi-$@ || $(shell which $@)
 	@install ./pi-$@ /usr/local/bin/ || $(shell which pi-$@)
 	@##@file pi-$@
 test-all:
@@ -35,4 +35,7 @@ gcc-test3:
 	echo $(shell pi-gcc   11111) | sed 's/3\.//'
 clang-test3:
 	echo $(shell pi-clang 11111) | sed 's/3\.//'
-
+clean:
+	@rm pi-gcc   2>/dev/null || true
+	@rm pi-clang 2>/dev/null || true
+	@rm a.out    2>/dev/null || true
