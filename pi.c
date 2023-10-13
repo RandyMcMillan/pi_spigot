@@ -3,10 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "argparse.h"
 
-void int2bin(int n, int* bin, int* bin_size, const int  bits);
+void int2bin(int n, int* bin, int* bin_size, const int bits);
 
-void int2bin(int n, int* bin,int *bin_size,const int  bits)
+void int2bin(int n, int* bin, int *bin_size, const int bits)
 {
     int i = 0;
     int temp[64];
@@ -37,7 +38,12 @@ void int2bin(int n, int* bin,int *bin_size,const int  bits)
 /* Print pi as an array of n digits in base 10000 */
 void print(unsigned short *pi, int n) {
   int i;
+
+/* REF: https://en.wikipedia.org/wiki/Common_logarithm#Mantissa_and_characteristic
+ * REMOVE characteristic '3.'
+ * we are only concerned with mantissa
   printf("%d.", pi[1]);
+*/
   for (i=2; i<n-1; ++i)
     printf("%04d", pi[i]);
   printf("\n");
@@ -68,19 +74,36 @@ http://web.comlab.ox.ac.uk/oucl/work/jeremy.gibbons/publications/spigot.pdf
 
 int main(int argc, char** argv) {
 
+/*
+   input 0 4 8 12 16 20 24 28 etc...
+*/
+
+/*
+   begin int2bin
+*/
+
    char ch;
    ch = 'A';
    int binary[32];
    int binary_size = 0;
-   
+
+/*
+   int2bin(int n, int* bin, int* bin_size, const int bits);
+*/
    int2bin(1324, binary, &binary_size, 32);
-   for (int i = 0; i < 32; i++)
-   {
-       // printf("%d ", binary[i]);
-   }
+   //for (int i = 0; i < 32; i++){ printf("\n%d\n", binary[i]); }
 
+/*
+   end int2bin
+*/
 
-  int n = argc > 1 ? (atoi(argv[1])+3)/4+3 : 253;  /* number of pi digits */
+/*
+TODO:
+{A = 1, B = 0, C = 0, N!=0, x = 7/N^2, sqrt(343/N^6 + 7) = y}
+*/
+
+  int n = argc > 1 ? (atoi(argv[1])+3)/4+3 : 360;  /* 360 default number of pi digits */
+
   unsigned short *pi = (unsigned short*) malloc(n * sizeof(unsigned short));
   div_t d;
   int i, j, t;
