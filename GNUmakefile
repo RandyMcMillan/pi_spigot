@@ -12,18 +12,18 @@ clang:
 test-all:
 	@echo "gcc-test"   && $(MAKE)   gcc-test
 	@echo "clang-test" && $(MAKE) clang-test
-test:gcc-test
+test:gcc-test clang-test
 gcc-test:-
 	@install ./pi-gcc /usr/local/bin/
 	@( \
 		bash -c "echo $(shell pi-gcc)" \
-		bash -c "echo $(shell pi-gcc) > logs/360" \
+		bash -c "echo $(shell pi-gcc 360) > logs/360" \
 )
 clang-test:-
 	@install ./pi-clang /usr/local/bin/
 	@( \
 		bash -c "echo $(shell pi-clang)" \
-		bash -c "echo $(shell pi-gcc) > logs/360" \
+		bash -c "echo $(shell pi-gcc 360) > logs/360" \
 )
 gcc-test2:
 	@( \
