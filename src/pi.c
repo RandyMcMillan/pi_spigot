@@ -5,6 +5,25 @@
 #include <string.h>
 #include "../include/argparse.h"
 
+void help();
+void help(){
+
+	printf("gnostr-pi  [-o] [--opts]  <int> <int>\n");
+	printf("gnostr-pi                 0\n");
+	printf("gnostr-pi                 1...4\n");
+	printf("gnostr-pi                 5...8\n");
+	printf("gnostr-pi                 9...12\n");
+	printf("gnostr-pi                  ...n mod 4 equals 0\n");
+	printf("Usage:\n");
+	printf("Usage:\n");
+	printf("	Usage:\n");
+	printf("	Usage:\n");
+	printf("	Usage:\n");
+	printf("	Usage:\n");
+	printf("	Usage:\n");
+
+
+}
 void int2bin(int n, int* bin, int* bin_size, const int bits);
 
 void int2bin(int n, int* bin, int *bin_size, const int bits)
@@ -36,7 +55,8 @@ void int2bin(int n, int* bin, int *bin_size, const int bits)
 }
 
 /* Print pi as an array of n digits in base 10000 */
-void print(unsigned short *pi, int n) {
+void print(unsigned short *pi, int n, int offset) {
+
   int i;
 
 /* REF: https://en.wikipedia.org/wiki/Common_logarithm#Mantissa_and_characteristic
@@ -102,7 +122,32 @@ TODO:
 {A = 1, B = 0, C = 0, N!=0, x = 7/N^2, sqrt(343/N^6 + 7) = y}
 */
 
-  int n = argc > 1 ? (atoi(argv[1])+3)/4+3 : 360;  /* 360 default number of pi digits */
+  if (argc == 1){
+/*
+      printf("argc=%d\n",argc);
+*/
+	  help();
+	  exit(0);
+  }
+
+  int n = {360};
+  int offset = {0};
+
+  // printf("argv[1]=%d\n", atoi(argv[1]));
+  if (argc == 2){
+  n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;  /* 253 default number of pi digits */
+  printf("n=%d\n", n);
+  }
+
+  if (argc == 3){
+	  printf("argc=3\n");
+	  printf("%d\n", atoi(argv[2]));
+	  offset = atoi(argv[2]);
+	  n = argc == 2 ? (atoi(argv[1]) + offset)/4 + offset : 360;  /* 360 default number of pi digits */
+	  printf("offset=%d\n", offset);
+	  n += offset;
+	  printf("n=%d\n", n);
+  }
 
   unsigned short *pi = (unsigned short*) malloc(n * sizeof(unsigned short));
   div_t d;
@@ -134,7 +179,7 @@ TODO:
     pi[1] += 2;
   }
 
-  print(pi, n);
+  print(pi, n, offset);
   return 0;
 }
 
