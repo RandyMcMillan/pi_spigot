@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "argparse.h"
+#include "../include/argparse.h"
 
 void int2bin(int n, int* bin, int* bin_size, const int bits);
 
