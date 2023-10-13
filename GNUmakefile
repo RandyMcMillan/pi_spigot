@@ -1,6 +1,8 @@
 -:gcc clang
 ##default gcc
-.PHONY:gcc clang
+.PHONY:gcc clang gnostr
+.PHONY:gnostr-pi gnostr
+gnostr-pi:gnostr
 gnostr:
 	@gcc src/pi.c -o $@-pi || $(shell which $@)
 	@install ./$@-pi /usr/local/bin/ || $(shell which $@-pi)
