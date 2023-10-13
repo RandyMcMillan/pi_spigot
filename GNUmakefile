@@ -17,11 +17,13 @@ gcc-test:-
 	@install ./pi-gcc /usr/local/bin/
 	@( \
 		bash -c "echo $(shell pi-gcc)" \
+		bash -c "echo $(shell pi-gcc) > logs/360" \
 )
 clang-test:-
 	@install ./pi-clang /usr/local/bin/
 	@( \
 		bash -c "echo $(shell pi-clang)" \
+		bash -c "echo $(shell pi-gcc) > logs/360" \
 )
 gcc-test2:
 	@( \
