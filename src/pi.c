@@ -215,13 +215,13 @@ int main(int argc, char** argv) {
    // printf("case:%c\n",ch);
    // printf("sizeof(binary)=%lu\n",sizeof(binary));
    // printbin(binary);
-   //printf("*binary=%d\n",*binary);
-   //printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
-   //printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
-   //printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
-   //printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
-   //printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
-   //printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
+   // printf("*binary=%d\n",*binary);
+   // printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
+   // printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
+   // printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
+   // printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
+   // printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
+   // printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
 
    int2bin(1324, binary, &binary_size, 32);
    // printf("sizeof(binary)=%lu\n",sizeof(binary));
@@ -263,30 +263,30 @@ TODO:
   int n = {360};
   int offset = {0};
 
-  printf("argv[1]=%d\n", atoi(argv[1]));
+  // printf("argv[1]=%d\n", atoi(argv[1]));
   if (argc == 2){
-	  printf("atoi(argv[1])=%d\n", atoi(argv[1]));
+	  // printf("atoi(argv[1])=%d\n", atoi(argv[1]));
 	  n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;  /* 253 -> 1000 default number of pi digits */
-	  printf("n=%d\n", n);//exit(0);
-	  printf("bits/%f\n", log2(n) / log2(2));// keep percision
+	  // printf("n=%d\n", n);//exit(0);
+	  // printf("bits/%f\n", log2(n) / log2(2));// keep percision
   }
 
   if (argc == 3){
-	  printf("argc=3\n");
-	  printf("%d\n", atoi(argv[2]));
+	  // printf("argc=3\n");
+	  // printf("%d\n", atoi(argv[2]));
 	  offset = atoi(argv[2]);
 	  n = argc == 2 ? (atoi(argv[1]) + offset)/4 + offset : 253;  /* 253 default number of pi digits */
-	  printf("offset=%d mod 4?\n", offset);
+	  // printf("offset=%d mod 4?\n", offset);
 	  n += offset;
-	  printf("n += offset:%d\n", n);
-	  printf("bits/%f\n", log2(n) / log2(2));// keep percision
-	  printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
+	  // printf("n += offset:%d\n", n);
+	  // printf("bits/%f\n", log2(n) / log2(2));// keep percision
+	  // printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
   }
 
   if (argc > 3){ help(); }
 
-  printf("bits/%f\n", log2(n) / log2(2));// keep percision
-  printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
+  // printf("bits/%f\n", log2(n) / log2(2));// keep percision
+  // printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
 
   // printf("*pi = n * sizeof(unsigned short)=%lu\n", n * sizeof(unsigned short));
   unsigned short *pi = (unsigned short*) malloc(n * sizeof(unsigned short));
