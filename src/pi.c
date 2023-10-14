@@ -152,9 +152,9 @@ void print(unsigned short *pi, int n, int offset) {
 	  // printf("%04d", pi[i]);
       pi_j += snprintf(pi_buffer, pi_max_len, "%s%u", pi_temp, (int)pi[i]);
       memcpy(pi_temp,pi_buffer,pi_max_len);
-
       puts((char *)pi_buffer);
   }
+  // puts((char *)pi_buffer);
 	// 4 dec digits per printf
   printf("\n");
 }
