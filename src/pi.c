@@ -15,13 +15,7 @@ void help(){
 	printf("gnostr-pi                 9...12\n");
 	printf("gnostr-pi                  ...n mod 4 equals 0\n");
 	printf("Usage:\n");
-	printf("Usage:\n");
 	printf("	Usage:\n");
-	printf("	Usage:\n");
-	printf("	Usage:\n");
-	printf("	Usage:\n");
-	printf("	Usage:\n");
-
 
 }
 void int2bin(int n, int* bin, int* bin_size, const int bits);
@@ -136,7 +130,7 @@ TODO:
   // printf("argv[1]=%d\n", atoi(argv[1]));
   if (argc == 2){
   n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;  /* 253 default number of pi digits */
-  printf("n=%d\n", n);
+  // printf("n=%d\n", n);
   }
 
   if (argc == 3){

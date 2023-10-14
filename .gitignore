@@ -2,3 +2,5 @@ a.out
 pi-clang
 pi-gcc
 gnostr-pi
+gnostr-clang
+gnostr-gcc
