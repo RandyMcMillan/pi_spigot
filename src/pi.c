@@ -98,41 +98,62 @@ void print(unsigned short *pi, int n, int offset) {
   printf("%d.", pi[1]);
 */
 
-  char buffer[256];
-  char temp[256];
-  int max_len = sizeof buffer;
-  // int j = snprintf(buffer, max_len, "The %u %u fox jumped over the %u dog.", pi[2], pi[3], pi[4]);
-  int j = snprintf(buffer, max_len, "0=%u",0);
-  printf("0j=%d\n", j);
-  puts(buffer);
-  memcpy(temp,buffer,max_len);
-  j += snprintf(buffer, max_len, "1=%u temp=%s",1,temp);
-  printf("1j=%d\n", j);
-  puts(buffer);
-  memcpy(temp,buffer,max_len);
-  j += snprintf(buffer, max_len, "1=%u temp=%s",1,temp);
-  printf("2j=%d\n", j);
-  puts(buffer);
-  memcpy(temp,buffer,max_len);
-  j += snprintf(buffer, max_len, "1=%u temp=%s",1,temp);
-  printf("3j=%d\n", j);
-  puts(buffer);
-  memcpy(temp,buffer,max_len);
-  j += snprintf(buffer, max_len, "The %u %u fox jumped over the %u dog + temp=%s", pi[2], pi[3], pi[4], temp);
-  printf("j=%d", j);
-  puts(buffer);
-  printf("\nThe number of bytes printed to 'buffer' "
-           "(excluding the null terminator) is %d\n",
-           j);
-  if (j >= max_len)
-	  fputs("Buffer length exceeded; string truncated", stderr);
-  puts("Joined string:");
-  puts(buffer);
- 
+  // char buffer[256];
+  // char temp[256];
+  // int max_len = sizeof buffer;
+  // // int j = snprintf(buffer, max_len, "The %u %u fox jumped over the %u dog.", pi[2], pi[3], pi[4]);
+  // int j = snprintf(buffer, max_len, "%u ",0);
+  // // printf("%d\n", j);
+  // // puts(buffer);
+  // memcpy(temp,buffer,max_len);
+  // j += snprintf(buffer, max_len, "%u %s",1,temp);
+  // // printf("%d\n", j);
+  // // puts(buffer);
+  // memcpy(temp,buffer,max_len);
+  // j += snprintf(buffer, max_len, "%u %s",1,temp);
+  // // printf("%d\n", j);
+  // // puts(buffer);
+  // memcpy(temp,buffer,max_len);
+  // j += snprintf(buffer, max_len, "%u %s",1,temp);
+  // // printf("%d\n", j);
+  // // puts(buffer);
+  // memcpy(temp,buffer,max_len);
+  // j += snprintf(buffer, max_len, "%u %u %u + %s", pi[2], pi[3], pi[4], temp);
+  // // printf("%d", j);
+  // // puts(buffer);
+  // printf("\nbytes"
+  //          "(excluding the null terminator)=%d\n",
+  //          j);
+  // if (j >= max_len)
+  //     fputs("Buffer length exceeded; string truncated", stderr);
+  // // puts("Joined string:");
+  // // puts(buffer);
+
+  // // exit(9999);
+
+
   for (i=2+offset; i<n-1; ++i){
 	  // printf("i=%d\n", i);
 	  // printf("%04d\n", pi[i]);
 	  printf("%04d", pi[i]);
+  }
+	// 4 dec digits per printf
+  printf("\n");
+
+  char pi_buffer[256];
+  char pi_temp[256];
+  int  pi_max_len = sizeof pi_buffer;
+  int  pi_j = snprintf(pi_buffer, pi_max_len, "%s", "");
+  memcpy(pi_temp, pi_buffer, pi_max_len);
+
+  for (i=2+offset; i<n-1; ++i){
+	  // printf("i=%d\n", i);
+	  // printf("%04d\n", pi[i]);
+	  // printf("%04d", pi[i]);
+      pi_j += snprintf(pi_buffer, pi_max_len, "%s%u", pi_temp, (int)pi[i]);
+      memcpy(pi_temp,pi_buffer,pi_max_len);
+
+      puts((char *)pi_buffer);
   }
 	// 4 dec digits per printf
   printf("\n");
