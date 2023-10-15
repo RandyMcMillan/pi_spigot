@@ -351,18 +351,24 @@ TODO:
   }
 
 if (argc == 4){
+
+	if (DEBUG) {
 	  printf("TODO:handle <path,salt>\n");
 	  printf("%d\n", atoi(argv[3]));
+	}
+
 	  exit(0);
-	  
+
 }
   if (argc > 4){ help(); }
 
-  // printf("bits/%f\n", log2(n) / log2(2));// keep percision
-  // printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
+	if (DEBUG) {
+		printf("bits/%f\n", log2(n) / log2(2));// keep percision
+		printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
+	}
 
-  // printf("*pi = n * sizeof(unsigned short)=%lu\n", n * sizeof(unsigned short));
   unsigned short *pi = (unsigned short*) malloc(n * sizeof(unsigned short));
+  printf("*pi = n * sizeof(unsigned short)=%lu\n", n * sizeof(unsigned short));
   div_t d;
   int i, j, t;
 
