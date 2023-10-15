@@ -28,10 +28,11 @@ void help();
 void help(){
 
 	printf("gnostr-pi                 <int> <int>\n");
-	printf("gnostr-pi                 0\n");
-	printf("gnostr-pi                 1...4\n");
-	printf("gnostr-pi                 5...8\n");
-	printf("gnostr-pi                 9...12\n");
+	printf("gnostr-pi                 \n");
+	printf("gnostr-pi                 0     		\n");
+	printf("gnostr-pi                 1...4 		1415\n");
+	printf("gnostr-pi                 5...8 		14159265\n");
+	printf("gnostr-pi                 9...12		141592653589\n");
 	printf("gnostr-pi                  ...n mod 4 equals 0\n");
 
 printf("\n");
@@ -139,6 +140,7 @@ void print(unsigned short *pi, int n, int offset) {
   }
 	// 4 dec digits per printf
   printf("\n");
+  exit(0);
 
   char pi_buffer[256];
   char pi_temp[256];
