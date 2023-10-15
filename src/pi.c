@@ -2,6 +2,7 @@
 
 #define DEBUG  0
 #define DEBUG2 0
+#define PRIMER 0
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -174,73 +175,74 @@ void print(unsigned short *pi, int n, int offset) {
 
 int main(int argc, char** argv) {
 
+	if ( atoi(argv[2]) < -1*253){ help(); exit(0); }
 /*
    input 0 4 8 12 16 20 24 28 etc...
 */
 
-if (DEBUG2){
-
-   /* begin int2bin */
-
-   char ch;
-   ch = 'A';
-
-   int binary[sizeof(int)*8];
-   int binary_size = 0;
-
-   int2bin(0, binary, &binary_size, sizeof(int)-1);
-   printf("case:0\n");
-
-   printf("sizeof(binary)=%lu\n",sizeof(binary));
-   printf("sizeof(binary_size)=%lu\n",sizeof(binary_size));
-   printbin(binary);printf("\n");
-   printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-7)]);
-
-   int2bin(ch, binary, &binary_size, 32);
-   printf("case:%c\n",ch);
-   printf("sizeof(binary)=%lu\n",sizeof(binary));
-   printf("sizeof(binary_size)=%lu\n",sizeof(binary_size));
-   printbin(binary);printf("\n");
-   printf("*binary=%d\n",*binary);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
-   printf("binary=%d\n",binary[(sizeof(binary)/4-7)]);
-
-   int2bin(1324, binary, &binary_size, 32);
-   // printf("sizeof(binary)=%lu\n",sizeof(binary));
-   // printf("*binary=%d\n",*binary);
-   // printbin(binary);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
-
-   // static char buf[128] = {0};
-   // const char *sub = argv[1];
-   // if (strlen(sub) >= 1 && sub[0] != '-') {
-   //     snprintf(buf, sizeof(buf)-1, "echo %s", sub);
-   //     execvp(buf, (char * const *)argv+1);
-   // }
-
-
-   //exit(0);
-
-/*
-   end int2bin
-*/
-}
+  if (DEBUG2){
+  
+     /* begin int2bin */
+  
+     char ch;
+     ch = 'A';
+  
+     int binary[sizeof(int)*8];
+     int binary_size = 0;
+  
+     int2bin(0, binary, &binary_size, sizeof(int)-1);
+     printf("case:0\n");
+  
+     printf("sizeof(binary)=%lu\n",sizeof(binary));
+     printf("sizeof(binary_size)=%lu\n",sizeof(binary_size));
+     printbin(binary);printf("\n");
+     printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-7)]);
+  
+     int2bin(ch, binary, &binary_size, 32);
+     printf("case:%c\n",ch);
+     printf("sizeof(binary)=%lu\n",sizeof(binary));
+     printf("sizeof(binary_size)=%lu\n",sizeof(binary_size));
+     printbin(binary);printf("\n");
+     printf("*binary=%d\n",*binary);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
+     printf("binary=%d\n",binary[(sizeof(binary)/4-7)]);
+  
+     int2bin(1324, binary, &binary_size, 32);
+     // printf("sizeof(binary)=%lu\n",sizeof(binary));
+     // printf("*binary=%d\n",*binary);
+     // printbin(binary);
+     // printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
+     // printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
+     // printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
+     // printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
+     // printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
+     // printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
+  
+     // static char buf[128] = {0};
+     // const char *sub = argv[1];
+     // if (strlen(sub) >= 1 && sub[0] != '-') {
+     //     snprintf(buf, sizeof(buf)-1, "echo %s", sub);
+     //     execvp(buf, (char * const *)argv+1);
+     // }
+  
+  
+     //exit(0);
+  
+  /*
+     end int2bin
+  */
+  }
 /*
 TODO:
 {A = 1, B = 0, C = 0, N!=0, x = 7/N^2, sqrt(343/N^6 + 7) = y}
@@ -263,7 +265,8 @@ TODO:
 		  printf("atoi(argv[1])=%d\n", atoi(argv[1]));
 	  }
 
-	  n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;  /* 253 -> 1000 default number of pi digits */
+	  /* 253 -> 1000 default number of pi digits */
+	  n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;
 
 	  if (DEBUG2) {
 		  printf("n=%d\n", n);//exit(0);
@@ -285,7 +288,9 @@ TODO:
 	  }
 
 	  offset = atoi(argv[2]);
-	  n = argc == 2 ? (atoi(argv[1]) + offset)/4 + offset : 253;  /* 253 default number of pi digits */
+	  /* 253 default number of pi digits */
+	  n = argc == 2 ? (atoi(argv[1]) + offset)/4 + offset : 253;
+	//n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;
 	  if (DEBUG) {
 		  printf("n=%d\n", n);//exit(0);
 		  printf("offset=%d\n", offset);
@@ -301,8 +306,10 @@ TODO:
 if (argc == 4){
 
 	if (DEBUG) {
-	  printf("TODO:handle <path,salt>\n");
-	  printf("%d\n", atoi(argv[3]));
+
+		printf("TODO:handle <path,salt>\n");
+		printf("%d\n", atoi(argv[3]));
+
 	}
 
 	  exit(0);
@@ -311,14 +318,19 @@ if (argc == 4){
   if (argc > 4){ help(); }
 
 	if (DEBUG) {
+
 		printf("bits/%f\n", log2(n) / log2(2));// keep percision
 		printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
+
 	}
 
   unsigned short *pi = (unsigned short*) malloc(n * sizeof(unsigned short));
+
   if (DEBUG){ printf("*pi = n * sizeof(unsigned short)=%lu\n", n * sizeof(unsigned short));}
+
   div_t d;
-  int i, j, t;
+  int i, j;
+  unsigned short t;
 
   /* pi = 4  */
   memset(pi, 0, n*sizeof(unsigned short));
@@ -328,18 +340,42 @@ if (argc == 4){
   // NOTE:
   for (i=(int)(3.322*4*n); i>0; --i) {
 
-	  if (DEBUG){ printf("i=%d\n",i); }
+	if (DEBUG2){ printf("i=%d\n",i); }
 
     /* pi *= i; */
     t = 0;
     for (j=n-1; j>=0; --j) {  /* pi *= i; */
-	  if (DEBUG){ printf("j=%d\n",j); }
+	  if (DEBUG2){ printf("j=%d\n",j); }
       t += pi[j] * i;
-	  if (DEBUG){ printf("t=%d\n",t); }
+	  if (DEBUG2){ printf("t=%d\n",t); }
       pi[j] = t % 10000;
-	  if (DEBUG){ printf("pi[j]=%d\n",pi[j]); }
+	  if (DEBUG2){ printf("pi[j]=%d\n",pi[j]); }
       t /= 10000;
-	  if (DEBUG){ printf("t=%d\n",t); }
+	  if (DEBUG2){ printf("t=%d\n",t); }
+	}
+	if (PRIMER){
+		if (offset <= 933){
+
+			printf("offset <= 933\n");
+
+			if (offset >= -1*253){
+
+				printf("offset > -1*253\n");
+
+				print(&t, n, offset); exit(0);
+
+			}
+
+			if (offset < -1*253){
+
+				printf("offset < -253\n"); exit(0);
+
+			}
+
+		} else {}
+
+		exit(0);
+
 	}
 
     /* pi /= (2*i+1) */
