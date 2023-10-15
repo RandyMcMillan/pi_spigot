@@ -112,123 +112,63 @@ void int2bin(int n, int* bin, int *bin_size, const int bits)
 
 void printbin();
 void printbin(int *binary){
+
 	if (DEBUG2){
 		printf("printbin\n");
 		for (int i = 0; i < 32; i++){ printf("%p=%d\n", &binary[i], binary[i]); }
 	}
+
 }
 /* Print pi as an array of n digits in base 10000 */
 void print(unsigned short *pi, int n, int offset) {
 
-  int i;
-
-  /*
-   * // REMOVE characteristic '3.'
-   * // we are only concerned with mantissa
-   * printf("%d.", pi[1]);
-   */
-
-  if (DEBUG2){
-
-    char buffer[256];
-    char temp[256];
-    int max_len = sizeof buffer;
-    // int j = snprintf(buffer, max_len, "The %u %u fox jumped over the %u dog.", pi[2], pi[3], pi[4]);
-    int j = snprintf(buffer, max_len, "%u",0);
-    printf("1:%d\n", j);
-    // puts(buffer);
-    memcpy(temp,buffer,max_len);
-    j += snprintf(buffer, max_len, "%u%s",0,temp);
-    printf("2:%d\n", j);
-    // puts(buffer);
-    memcpy(temp,buffer,max_len);
-    j += snprintf(buffer, max_len, "%u%s",0,temp);
-    printf("3:%d\n", j);
-    // puts(buffer);
-    memcpy(temp,buffer,max_len);
-    j += snprintf(buffer, max_len, "%u%s",0,temp);
-    printf("4:%d\n", j);
-    // puts(buffer);
-    memcpy(temp,buffer,max_len);
-    j += snprintf(buffer, max_len, "%u%u%u + %s", pi[2], pi[3], pi[4], temp);
-    printf("5:%d", j);
-    // puts(buffer);
-    printf("\nbytes"
-             "(excluding the null terminator)=%d\n",
-             j);
-    if (j >= max_len)
-        fputs("Buffer length exceeded; string truncated", stderr);
-    puts("Joined string:");
-    puts(buffer);
-
-    // exit(9999);
-  }
-
-  // printf("%04d", pi[0]);
-  // printf("%04d", pi[1]);
-  for (i=2+offset; i<n-1; ++i){
-	  if (DEBUG2){
-		  printf("DEBUG:%04d\n", pi[i]);
-	  }
-  }
-  // printf("\n");
-  // exit(0);
-
 										 // Additional Properties
-  // printf("SIZE_MAX=%lu\n",SIZE_MAX);     // 18446744073709551615
+// printf("SIZE_MAX=%lu\n",SIZE_MAX);    // 18446744073709551615
                                          // 19 decimal digits
                                          // 1111111111111111111111111111111111111111111111111111111111111_2
                                          // 18446744073709551615/x;
                                          // sqrt(abs(x)^2 + 340282366920938463426481119284349108225/abs(x)^2)
                                          //
 										 //
-  // printf("SIZE_MAX/8=%lu\n",SIZE_MAX/8); // 2305843009213693951
+// printf("SIZE_MAX/8=%lu\n",SIZE_MAX/8);// 2305843009213693951
                                          // 2305843009213693951/x;
                                          // sqrt(abs(x)^2 + 5316911983139663487003542222693990401/abs(x)^2)
                                          //
 
+  int i;
+
+  /* REMOVE characteristic '3.'
+   * we are only concerned with mantissa
+   * printf("%d.", pi[1]);
+   */
+
   for (i=2+offset; i<n-1; ++i){
-	  //printf not limited by pi_max_len buffer size
+
 	  printf("%04d", pi[i]);
+
   }
-  // // printf("\nEND:printf\n");
-
-  // char pi_buffer[256];
-  // char pi_temp[256];
-  // int  pi_max_len = sizeof pi_buffer;
-  // int  pi_j = snprintf(pi_buffer, pi_max_len, "%s", "");
-
-  // for (i=2+offset; i<n-1; ++i){
-  //     pi_j += snprintf(pi_buffer, pi_max_len, "%s%u", pi_temp, pi[i]);
-  //     memcpy(pi_temp,pi_buffer,pi_max_len);
-  //     // puts((char *)pi_buffer);
-  //     // printf("LOOP:\n");
-  // }
-  // // printf("END:puts\n");
-  // // puts((char *)pi_buffer);
-  // printf("\n");
 }
 
 /* Compute pi to B bits precision by the Spigot algorithm given by
-Rabinowitz and Wagon, Am. Math. Monthly, March 1995, 195-203.
+   Rabinowitz and Wagon, Am. Math. Monthly, March 1995, 195-203.
 
-   pi = 4;
-   for (i = B; i>0; --i)
-     pi = 2 + pi * i / (2*i+1)
+      pi = 4;
+      for (i = B; i>0; --i)
+          pi = 2 + pi * i / (2*i+1)
 
-pi is represented by a base 10000 array of digits with 2 digits before
-the decimal point (pi[0], pi[1]), and one extra digit (pi[n-1]) at
-the end to allow for roundoff error, which is not printed.  Note that a
-base 10 digit is equivalent to log(10)/log(2) = 3.322 bits.
+   pi is represented by a base 10000 array of digits with 2 digits before
+   the decimal point (pi[0], pi[1]), and one extra digit (pi[n-1]) at
+   the end to allow for roundoff error, which is not printed.  Note that a
+   base 10 digit is equivalent to log(10)/log(2) = 3.322 bits.
 
-For shorter versions, see
-http://www1.physik.tu-muenchen.de/~gammel/matpack/html/Mathematics/Pi.html
-http://numbers.computation.free.fr/Constants/TinyPrograms/tinycodes.html
+   For shorter versions, see
+   http://www1.physik.tu-muenchen.de/~gammel/matpack/html/Mathematics/Pi.html
+   http://numbers.computation.free.fr/Constants/TinyPrograms/tinycodes.html
 
-and for an explanation of how they work, see
-Unbounded Spigot Algorithms for the Digits of Pi,
-Jeremy Gibbons, University of Oxford, 2004,
-http://web.comlab.ox.ac.uk/oucl/work/jeremy.gibbons/publications/spigot.pdf
+   and for an explanation of how they work, see
+   Unbounded Spigot Algorithms for the Digits of Pi,
+   Jeremy Gibbons, University of Oxford, 2004,
+   http://web.comlab.ox.ac.uk/oucl/work/jeremy.gibbons/publications/spigot.pdf
 
 */
 
@@ -237,6 +177,7 @@ int main(int argc, char** argv) {
 /*
    input 0 4 8 12 16 20 24 28 etc...
 */
+
 if (DEBUG2){
 
    /* begin int2bin */
