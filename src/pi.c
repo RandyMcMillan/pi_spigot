@@ -1,5 +1,8 @@
 /* Print pi to n decimal places (default 1000): pi n */
 
+#define DEBUG 1
+#define DEBUG2 0
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -71,6 +74,9 @@ printf("\n");
 // printf("the decimal point (pi[0], pi[1]), and one extra digit (pi[n-1]) at\n");
 // printf("the end to allow for roundoff error, which is not printed.  Note that a\n");
 // printf("base 10 digit is equivalent to log(10)/log(2) = 3.322 bits.\n");
+//
+// 3.32192809488736234787031942948939017586483139302458061205475639581593477...
+// if π = log(10)/log(x) then x = 10^(1/π)
 
 exit(0);
 }
@@ -106,63 +112,67 @@ void int2bin(int n, int* bin, int *bin_size, const int bits)
 
 void printbin();
 void printbin(int *binary){
-	// printf("printbin\n");
-	for (int i = 0; i < 32; i++){ printf("%d", binary[i]); }
-	printf(" ");
+	if (DEBUG2){
+		printf("printbin\n");
+		for (int i = 0; i < 32; i++){ printf("%p=%d\n", &binary[i], binary[i]); }
+	}
 }
 /* Print pi as an array of n digits in base 10000 */
 void print(unsigned short *pi, int n, int offset) {
 
   int i;
 
-/* REF: https://en.wikipedia.org/wiki/Common_logarithm#Mantissa_and_characteristic
- * REMOVE characteristic '3.'
- * we are only concerned with mantissa
-  printf("%d.", pi[1]);
-*/
+  /*
+   * // REMOVE characteristic '3.'
+   * // we are only concerned with mantissa
+   * printf("%d.", pi[1]);
+   */
 
-  // char buffer[256];
-  // char temp[256];
-  // int max_len = sizeof buffer;
-  // // int j = snprintf(buffer, max_len, "The %u %u fox jumped over the %u dog.", pi[2], pi[3], pi[4]);
-  // int j = snprintf(buffer, max_len, "%u ",0);
-  // // printf("%d\n", j);
-  // // puts(buffer);
-  // memcpy(temp,buffer,max_len);
-  // j += snprintf(buffer, max_len, "%u %s",1,temp);
-  // // printf("%d\n", j);
-  // // puts(buffer);
-  // memcpy(temp,buffer,max_len);
-  // j += snprintf(buffer, max_len, "%u %s",1,temp);
-  // // printf("%d\n", j);
-  // // puts(buffer);
-  // memcpy(temp,buffer,max_len);
-  // j += snprintf(buffer, max_len, "%u %s",1,temp);
-  // // printf("%d\n", j);
-  // // puts(buffer);
-  // memcpy(temp,buffer,max_len);
-  // j += snprintf(buffer, max_len, "%u %u %u + %s", pi[2], pi[3], pi[4], temp);
-  // // printf("%d", j);
-  // // puts(buffer);
-  // printf("\nbytes"
-  //          "(excluding the null terminator)=%d\n",
-  //          j);
-  // if (j >= max_len)
-  //     fputs("Buffer length exceeded; string truncated", stderr);
-  // // puts("Joined string:");
-  // // puts(buffer);
+  if (DEBUG2){
 
-  // // exit(9999);
+    char buffer[256];
+    char temp[256];
+    int max_len = sizeof buffer;
+    // int j = snprintf(buffer, max_len, "The %u %u fox jumped over the %u dog.", pi[2], pi[3], pi[4]);
+    int j = snprintf(buffer, max_len, "%u",0);
+    printf("1:%d\n", j);
+    // puts(buffer);
+    memcpy(temp,buffer,max_len);
+    j += snprintf(buffer, max_len, "%u%s",0,temp);
+    printf("2:%d\n", j);
+    // puts(buffer);
+    memcpy(temp,buffer,max_len);
+    j += snprintf(buffer, max_len, "%u%s",0,temp);
+    printf("3:%d\n", j);
+    // puts(buffer);
+    memcpy(temp,buffer,max_len);
+    j += snprintf(buffer, max_len, "%u%s",0,temp);
+    printf("4:%d\n", j);
+    // puts(buffer);
+    memcpy(temp,buffer,max_len);
+    j += snprintf(buffer, max_len, "%u%u%u + %s", pi[2], pi[3], pi[4], temp);
+    printf("5:%d", j);
+    // puts(buffer);
+    printf("\nbytes"
+             "(excluding the null terminator)=%d\n",
+             j);
+    if (j >= max_len)
+        fputs("Buffer length exceeded; string truncated", stderr);
+    puts("Joined string:");
+    puts(buffer);
 
-
-  for (i=2+offset; i<n-1; ++i){
-	  // printf("i=%d\n", i);
-	  // printf("%04d\n", pi[i]);
-	  printf("%04d", pi[i]);
+    // exit(9999);
   }
-	// 4 dec digits per printf
+
+  // printf("%04d", pi[0]);
+  // printf("%04d", pi[1]);
+  for (i=2+offset; i<n-1; ++i){
+	  if (DEBUG2){
+		  printf("DEBUG:%04d\n", pi[i]);
+	  }
+  }
   printf("\n");
-  exit(0);
+  // exit(0);
 
   char pi_buffer[256];
   char pi_temp[256];
@@ -176,9 +186,9 @@ void print(unsigned short *pi, int n, int offset) {
 	  // printf("%04d", pi[i]);
       pi_j += snprintf(pi_buffer, pi_max_len, "%s%u", pi_temp, (int)pi[i]);
       memcpy(pi_temp,pi_buffer,pi_max_len);
-      puts((char *)pi_buffer);
+      //puts((char *)pi_buffer);
   }
-  // puts((char *)pi_buffer);
+  puts((char *)pi_buffer);
 	// 4 dec digits per printf
   printf("\n");
 }
@@ -211,7 +221,7 @@ int main(int argc, char** argv) {
 /*
    input 0 4 8 12 16 20 24 28 etc...
 */
-
+if (DEBUG2){
 /*
    begin int2bin
 */
@@ -219,33 +229,44 @@ int main(int argc, char** argv) {
    char ch;
    ch = 'A';
 
-   int binary[32];
+   int binary[sizeof(int)*8];
    int binary_size = 0;
 
 /*
    int2bin(int n, int* bin, int* bin_size, const int bits);
 */
-   int2bin(0, binary, &binary_size, 32);
+
+   // printf("sizeof(int)=%lu\n",sizeof(int));
+   // printf("sizeof(int)-1=%lu\n",sizeof(int)-1);
    // printf("sizeof(binary)=%lu\n",sizeof(binary));
-   // printbin(binary);printf("\n");
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
+
+   int2bin(0, binary, &binary_size, sizeof(int)-1);
+   printf("case:0\n");
+
+   printf("sizeof(binary)=%lu\n",sizeof(binary));
+   printf("sizeof(binary_size)=%lu\n",sizeof(binary_size));
+   printbin(binary);printf("\n");
+   printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-7)]);
 
    int2bin(ch, binary, &binary_size, 32);
-   // printf("case:%c\n",ch);
-   // printf("sizeof(binary)=%lu\n",sizeof(binary));
-   // printbin(binary);
-   // printf("*binary=%d\n",*binary);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
-   // printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
+   printf("case:%c\n",ch);
+   printf("sizeof(binary)=%lu\n",sizeof(binary));
+   printf("sizeof(binary_size)=%lu\n",sizeof(binary_size));
+   printbin(binary);printf("\n");
+   printf("*binary=%d\n",*binary);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-1)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-2)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-3)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-4)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-5)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-6)]);
+   printf("binary=%d\n",binary[(sizeof(binary)/4-7)]);
 
    int2bin(1324, binary, &binary_size, 32);
    // printf("sizeof(binary)=%lu\n",sizeof(binary));
@@ -271,7 +292,7 @@ int main(int argc, char** argv) {
 /*
    end int2bin
 */
-
+}
 /*
 TODO:
 {A = 1, B = 0, C = 0, N!=0, x = 7/N^2, sqrt(343/N^6 + 7) = y}
@@ -284,30 +305,58 @@ TODO:
 
   }
 
-  int n = {360};
+  int n = {253};
   int offset = {0};
 
   // printf("argv[1]=%d\n", atoi(argv[1]));
   if (argc == 2){
-	  // printf("atoi(argv[1])=%d\n", atoi(argv[1]));
+
+	  if (DEBUG2) {
+		  printf("atoi(argv[1])=%d\n", atoi(argv[1]));
+	  }
+
 	  n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;  /* 253 -> 1000 default number of pi digits */
-	  // printf("n=%d\n", n);//exit(0);
-	  // printf("bits/%f\n", log2(n) / log2(2));// keep percision
+
+	  if (DEBUG2) {
+		  printf("n=%d\n", n);//exit(0);
+		  printf("log(n)=%f\n", log(n));// keep percision
+		  printf("log2(n)=%f\n", log2(n));// keep percision
+		  printf("log(2)=%f\n", log(2));// keep percision
+		  printf("log2(2)=%f\n", log2(2));// keep percision
+		  printf("bit/%f\n", log(10) / log(2));// keep percision
+		  printf("bits/%f\n", log(n) / log(2));// keep percision
+	  }
   }
 
   if (argc == 3){
-	  // printf("argc=3\n");
-	  // printf("%d\n", atoi(argv[2]));
+
+	  if (DEBUG2) {
+		  printf("argc=3\n");
+		  printf("depth:atoi(argv[1])=%d\n", atoi(argv[1]));
+		  printf("offset:atoi(argv[2])=%d\n", atoi(argv[2]));
+	  }
+
 	  offset = atoi(argv[2]);
 	  n = argc == 2 ? (atoi(argv[1]) + offset)/4 + offset : 253;  /* 253 default number of pi digits */
-	  // printf("offset=%d mod 4?\n", offset);
+	  if (DEBUG) {
+		  printf("n=%d\n", n);//exit(0);
+		  printf("offset=%d\n", offset);
+	  }
 	  n += offset;
-	  // printf("n += offset:%d\n", n);
-	  // printf("bits/%f\n", log2(n) / log2(2));// keep percision
-	  // printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
+	  if (DEBUG) {
+		  printf("n += offset:%d\n", n);
+		  // printf("bits/%f\n", log2(n) / log2(2));// keep percision
+		  // printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
+	  }
   }
 
-  if (argc > 3){ help(); }
+if (argc == 4){
+	  printf("TODO:handle <path,salt>\n");
+	  printf("%d\n", atoi(argv[3]));
+	  exit(0);
+	  
+}
+  if (argc > 4){ help(); }
 
   // printf("bits/%f\n", log2(n) / log2(2));// keep percision
   // printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
