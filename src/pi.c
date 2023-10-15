@@ -174,6 +174,19 @@ void print(unsigned short *pi, int n, int offset) {
   // printf("\n");
   // exit(0);
 
+										 // Additional Properties
+  // printf("SIZE_MAX=%lu\n",SIZE_MAX);     // 18446744073709551615
+                                         // 19 decimal digits
+                                         // 1111111111111111111111111111111111111111111111111111111111111_2
+                                         // 18446744073709551615/x;
+                                         // sqrt(abs(x)^2 + 340282366920938463426481119284349108225/abs(x)^2)
+                                         //
+										 //
+  // printf("SIZE_MAX/8=%lu\n",SIZE_MAX/8); // 2305843009213693951
+                                         // 2305843009213693951/x;
+                                         // sqrt(abs(x)^2 + 5316911983139663487003542222693990401/abs(x)^2)
+                                         //
+
   char pi_buffer[256];
   char pi_temp[256];
   int  pi_max_len = sizeof pi_buffer;
