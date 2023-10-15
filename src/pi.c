@@ -1,6 +1,6 @@
 /* Print pi to n decimal places (default 1000): pi n */
 
-#define DEBUG 1
+#define DEBUG  0
 #define DEBUG2 0
 
 #include <stdio.h>
@@ -171,7 +171,7 @@ void print(unsigned short *pi, int n, int offset) {
 		  printf("DEBUG:%04d\n", pi[i]);
 	  }
   }
-  printf("\n");
+  // printf("\n");
   // exit(0);
 
   char pi_buffer[256];
@@ -368,7 +368,7 @@ if (argc == 4){
 	}
 
   unsigned short *pi = (unsigned short*) malloc(n * sizeof(unsigned short));
-  printf("*pi = n * sizeof(unsigned short)=%lu\n", n * sizeof(unsigned short));
+  if (DEBUG){ printf("*pi = n * sizeof(unsigned short)=%lu\n", n * sizeof(unsigned short));}
   div_t d;
   int i, j, t;
 
@@ -377,27 +377,40 @@ if (argc == 4){
   pi[1]=4;
 
   /* for i = B down to 1 */
+  // NOTE:
   for (i=(int)(3.322*4*n); i>0; --i) {
+
+	  if (DEBUG){ printf("i=%d\n",i); }
 
     /* pi *= i; */
     t = 0;
     for (j=n-1; j>=0; --j) {  /* pi *= i; */
+	  if (DEBUG){ printf("j=%d\n",j); }
       t += pi[j] * i;
+	  if (DEBUG){ printf("t=%d\n",t); }
       pi[j] = t % 10000;
+	  if (DEBUG){ printf("pi[j]=%d\n",pi[j]); }
       t /= 10000;
-    }
+	  if (DEBUG){ printf("t=%d\n",t); }
+	}
 
     /* pi /= (2*i+1) */
     d.quot = d.rem = 0;
     for (j=0; j<n; ++j) {  /* pi /= 2*i+1; */
+	  if (DEBUG){ printf("j=%d\n",j); }
+	  if (DEBUG){ printf("i=%d\n",i); }
       d = div(pi[j]+d.rem*10000, i+i+1);
+	  if (DEBUG){ printf("d.quot=%d\n",d.quot); }
+	  if (DEBUG){ printf("d.rem=%d\n",d.rem); }
       pi[j] = d.quot;
-    }
+	 if (DEBUG){  printf("pi[j]=%d\n",pi[j]); }
+	}
 
     /* pi += 2 */
     pi[1] += 2;
+	if (DEBUG){ printf("pi[1]=%d\n",pi[1]); }
   }
-
+  // exit(0);
   print(pi, n, offset);
   return 0;
 }
