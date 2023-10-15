@@ -1,5 +1,5 @@
 -:gcc clang gnostr-pi
-##default gcc
+
 .PHONY:gcc clang gnostr gnostr-pi gnostr
 gnostr-pi:gnostr
 gnostr:
@@ -11,29 +11,32 @@ gcc:
 clang:
 	@$@ src/pi.c -o pi-$@ || $(shell which $@)
 	@install ./pi-$@ /usr/local/bin/ || $(shell which $@)
-test-all:gnostr gcc clang
-	@echo "gnostr-test" && $(MAKE) gnostr-test
-	@echo "gcc-test"    && $(MAKE)    gcc-test
-	@echo "clang-test"  && $(MAKE) clang-test
 test:gcc-test clang-test gnostr-test
+.PHONY:gnostr-test
 gnostr-test:-
 	@install ./gnostr-pi /usr/local/bin/
-	@( \
-		bash -c "gnostr-pi" \
-		bash -c "gnostr-pi 360 > logs/360" \
-)
+	./gnostr-pi
+	./gnostr-pi 360   > ./logs/360.txt   
+	./gnostr-pi 1000  > ./logs/1000.txt  
+	./gnostr-pi 360 1 > ./logs/360_1.txt 
+	./gnostr-pi 100 2 > ./logs/100_2.txt 
+	git diff logs >> diff.log
 gcc-test:-
 	@install ./pi-gcc /usr/local/bin/
-	@( \
-		bash -c "pi-gcc" \
-		bash -c "pi-gcc 360 > logs/360" \
-)
+	./pi-gcc && \
+	./pi-gcc 360   > ./logs/360.txt   
+	./pi-gcc 1000  > ./logs/1000.txt  
+	./pi-gcc 360 1 > ./logs/360_1.txt 
+	./pi-gcc 100 2 > ./logs/100_2.txt 
+	git diff logs >> diff.log
 clang-test:-
 	@install ./pi-clang /usr/local/bin/
-	@( \
-		bash -c "pi-clang" \
-		bash -c "pi-clang 360 > logs/360" \
-)
+	pi-clang && \
+	pi-clang 360   > ./logs/360.txt   
+	pi-clang 1000  > ./logs/1000.txt  
+	pi-clang 360 1 > ./logs/360_1.txt 
+	pi-clang 100 2 > ./logs/100_2.txt 
+	git diff logs >> diff.log
 gcc-test2:
 	@( \
 	bash -c "pi-gcc   11111 | sed 's/\./_/'" \
