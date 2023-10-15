@@ -27,28 +27,44 @@
 void help();
 void help(){
 
-	printf("gnostr-pi                 <int> <int>\n");
-	printf("gnostr-pi                 \n");
-	printf("gnostr-pi                 0     		\n");
-	printf("gnostr-pi                 1...4 		1415\n");
-	printf("gnostr-pi                 5...8 		14159265\n");
-	printf("gnostr-pi                 9...12		141592653589\n");
-	printf("gnostr-pi                  ...n mod 4 equals 0\n");
+	printf("gnostr-pi - deterministic entropy                     \n");
+	printf("                                                      \n");
+	printf("gnostr-pi   depth                                     \n");
+	printf("gnostr-pi   <int>                                     \n");
+	printf("                                                      \n");
+	printf("gnostr-pi   0     		                                  \n");
+	printf("gnostr-pi   1...4 		  1415                            \n");
+	printf("gnostr-pi   5...8 		  14159265                        \n");
+	printf("gnostr-pi   9...12		  141592653589                    \n");
+	printf("gnostr-pi   16    		  1415926535897932                \n");
+	printf("gnostr-pi   32    		  14159265358979323846264338327950\n");
+	printf("                  		                                  \n");
+	printf("gnostr-pi   depth   offset	                           \n");
+	printf("            0       0     	  default 1000 digits of pi.mantissa\n");
+	printf("                          	  The mantissa of π is the fractional part.\n");
+	printf("                          	  (i.e. everything after the decimal place).\n");
+	printf("            <int>   <int> 	                           \n");
+	printf("                          	                           \n");
+	printf("                          	  14159265...64201989      \n");
 
+//
 printf("\n");
-printf("About:\n");
+printf("Context:\n");
 printf("\n");
-printf("Compute pi to B bits precision by the Spigot algorithm given by\n");
-printf("Rabinowitz and Wagon, Am. Math. Monthly, March 1995, 195-203.\n");
 printf("\n");
-printf("	pi = 4;\n");
-printf("	 for (i = B; i>0; --i)\n");
-printf("	 pi = 2 + pi * i / (2*i+1)\n");
-printf("\n");
-printf("pi is represented by a base 10000 array of digits with 2 digits before\n");
-printf("the decimal point (pi[0], pi[1]), and one extra digit (pi[n-1]) at\n");
-printf("the end to allow for roundoff error, which is not printed.  Note that a\n");
-printf("base 10 digit is equivalent to log(10)/log(2) = 3.322 bits.\n");
+// printf("About:\n");
+// printf("\n");
+// printf("Compute pi to B bits precision by the Spigot algorithm given by\n");
+// printf("Rabinowitz and Wagon, Am. Math. Monthly, March 1995, 195-203.\n");
+// printf("\n");
+// printf("	pi = 4;\n");
+// printf("	for (i = B; i>0; --i)\n");
+// printf("	    pi = 2 + pi * i / (2*i+1)\n");
+// printf("\n");
+// printf("pi is represented by a base 10000 array of digits with 2 digits before\n");
+// printf("the decimal point (pi[0], pi[1]), and one extra digit (pi[n-1]) at\n");
+// printf("the end to allow for roundoff error, which is not printed.  Note that a\n");
+// printf("base 10 digit is equivalent to log(10)/log(2) = 3.322 bits.\n");
 
 exit(0);
 }
