@@ -33,19 +33,25 @@ void help(){
 	printf("gnostr-pi   <int>                                     \n");
 	printf("                                                      \n");
 	printf("gnostr-pi   0     		                                  \n");
-	printf("gnostr-pi   1...4 		  1415                            \n");
-	printf("gnostr-pi   5...8 		  14159265                        \n");
-	printf("gnostr-pi   9...12		  141592653589                    \n");
+	printf("gnostr-pi   4     		  1415                            \n");
+	printf("gnostr-pi   8     		  14159265                        \n");
+	printf("gnostr-pi   12    		  141592653589                    \n");
 	printf("gnostr-pi   16    		  1415926535897932                \n");
+	printf("gnostr-pi   20    		  14159265358979323846            \n");
+	printf("gnostr-pi   24    		  141592653589793238462643        \n");
+	printf("gnostr-pi   28    		  1415926535897932384626433832    \n");
 	printf("gnostr-pi   32    		  14159265358979323846264338327950\n");
 	printf("                  		                                  \n");
-	printf("gnostr-pi   depth   offset	                           \n");
-	printf("            0       0     	  default 1000 digits of pi.mantissa\n");
+	printf("gnostr-pi   depth   offset	  default 1000 digits of pi mantissa\n");
 	printf("                          	  The mantissa of π is the fractional part.\n");
 	printf("                          	  (i.e. everything after the decimal place).\n");
 	printf("            <int>   <int> 	                           \n");
-	printf("                          	                           \n");
-	printf("                          	  14159265...64201989      \n");
+	printf("            0       0     	  14159265...64201989      \n");
+	printf("            0       1     	  offset 1*4 digits        \n");
+	printf("            0       2     	  offset 2*4 digits        \n");
+	printf("            0       3     	  offset 3*4 digits        \n");
+	printf("            0       4     	  offset 4*4 digits        \n");
+	printf("            0       n     	  offset n*4 digits        \n");
 
 //
 printf("\n");
