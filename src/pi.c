@@ -187,23 +187,26 @@ void print(unsigned short *pi, int n, int offset) {
                                          // sqrt(abs(x)^2 + 5316911983139663487003542222693990401/abs(x)^2)
                                          //
 
-  char pi_buffer[256];
-  char pi_temp[256];
-  int  pi_max_len = sizeof pi_buffer;
-  int  pi_j = snprintf(pi_buffer, pi_max_len, "%s", "");
-  memcpy(pi_temp, pi_buffer, pi_max_len);
-
   for (i=2+offset; i<n-1; ++i){
-	  // printf("i=%d\n", i);
-	  // printf("%04d\n", pi[i]);
-	  // printf("%04d", pi[i]);
-      pi_j += snprintf(pi_buffer, pi_max_len, "%s%u", pi_temp, (int)pi[i]);
-      memcpy(pi_temp,pi_buffer,pi_max_len);
-      //puts((char *)pi_buffer);
+	  //printf not limited by pi_max_len buffer size
+	  printf("%04d", pi[i]);
   }
-  puts((char *)pi_buffer);
-	// 4 dec digits per printf
-  printf("\n");
+  // // printf("\nEND:printf\n");
+
+  // char pi_buffer[256];
+  // char pi_temp[256];
+  // int  pi_max_len = sizeof pi_buffer;
+  // int  pi_j = snprintf(pi_buffer, pi_max_len, "%s", "");
+
+  // for (i=2+offset; i<n-1; ++i){
+  //     pi_j += snprintf(pi_buffer, pi_max_len, "%s%u", pi_temp, pi[i]);
+  //     memcpy(pi_temp,pi_buffer,pi_max_len);
+  //     // puts((char *)pi_buffer);
+  //     // printf("LOOP:\n");
+  // }
+  // // printf("END:puts\n");
+  // // puts((char *)pi_buffer);
+  // printf("\n");
 }
 
 /* Compute pi to B bits precision by the Spigot algorithm given by
@@ -235,23 +238,14 @@ int main(int argc, char** argv) {
    input 0 4 8 12 16 20 24 28 etc...
 */
 if (DEBUG2){
-/*
-   begin int2bin
-*/
+
+   /* begin int2bin */
 
    char ch;
    ch = 'A';
 
    int binary[sizeof(int)*8];
    int binary_size = 0;
-
-/*
-   int2bin(int n, int* bin, int* bin_size, const int bits);
-*/
-
-   // printf("sizeof(int)=%lu\n",sizeof(int));
-   // printf("sizeof(int)-1=%lu\n",sizeof(int)-1);
-   // printf("sizeof(binary)=%lu\n",sizeof(binary));
 
    int2bin(0, binary, &binary_size, sizeof(int)-1);
    printf("case:0\n");
