@@ -177,7 +177,11 @@ int main(int argc, char** argv) {
 
 	if ( argc > 2 ){
 	// lower bound of offset is -253
-		if ( atoi(argv[2]) < -1*253){ help(); exit(0); }
+	// -250 keeps the 3 (characteristic) as the last digit in the output
+	// the output is pseudo-random rounding error
+	// TODO: add test to output to ensure the 3 (characteristic is present)
+	// error otherwise
+		if ( atoi(argv[2]) < -1*250){ help(); exit(0); }
 	}
 /*
    input 0 4 8 12 16 20 24 28 etc...
@@ -292,7 +296,7 @@ TODO:
 
 	  offset = atoi(argv[2]);
 	  /* 253 default number of pi digits */
-	  n = argc == 2 ? (atoi(argv[1]) + offset)/4 + offset : 253;
+	  n = argc == 2 ? (atoi(argv[1]) + 3 + offset)/4 + 3 + offset : 253;
 	//n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;
 	  if (DEBUG) {
 		  printf("n=%d\n", n);//exit(0);
