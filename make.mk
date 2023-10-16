@@ -21,6 +21,7 @@ gnostr-test:-
 	./gnostr-pi 360 1 > ./logs/360_1.txt 
 	./gnostr-pi 100 2 > ./logs/100_2.txt 
 	./gnostr-pi 1000 -253 > ./logs/1000_-253.txt
+	./gnostr-pi 1000 -205 > ./logs/1000_-205.txt
 	git diff logs >> diff.log
 gcc-test:-
 	@install ./pi-gcc /usr/local/bin/
