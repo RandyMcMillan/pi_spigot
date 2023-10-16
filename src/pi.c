@@ -1,5 +1,7 @@
 /* Print pi to n decimal places (default 1000): pi n */
+
 #define VERSION "v0.0.7"
+
 #define DEBUG  0
 #define DEBUG2 0
 #define PRIMER 0
@@ -262,66 +264,49 @@ TODO:
 {A = 1, B = 0, C = 0, N!=0, x = 7/N^2, sqrt(343/N^6 + 7) = y}
 */
 
-  if (argc == 1){
-
-	// printf("argc=%d\n",argc);
-	help();exit(0);
-
-  }
-
   int n = {253};
   int offset = {0};
 
-  // printf("argv[1]=%d\n", atoi(argv[1]));
+  if (argc == 1){ help(); exit(0); }
   if (argc == 2){
 
-	  if (DEBUG2 || (strcmp(argv[1],"debug"))){
-		  printf("atoi(argv[0])=%d\n", atoi(argv[0]));
-		  printf("atoi(argv[1])=%d\n", atoi(argv[1]));
-	  }
-
 	  if (!strcmp(argv[1],"about")){
-		  about();
+		  about(); exit(0);
 	  }
 	  if (!strcmp(argv[1],"help")){
-		  help();
+		  help(); exit(0);
 	  }
+
 	  /* 253 -> 1000 default number of pi digits */
 	  n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;
 
-	  if (DEBUG2) {
-		  printf("n=%d\n", n);//exit(0);
-		  printf("log(n)=%f\n", log(n));// keep percision
-		  printf("log2(n)=%f\n", log2(n));// keep percision
-		  printf("log(2)=%f\n", log(2));// keep percision
-		  printf("log2(2)=%f\n", log2(2));// keep percision
-		  printf("bit/%f\n", log(10) / log(2));// keep percision
-		  printf("bits/%f\n", log(n) / log(2));// keep percision
+	  if (!strcmp(argv[1],"debug")){
+		  printf("atoi(argv[0])=%s\n", argv[0]);
+		  printf("atoi(argv[1])=%d\n", atoi(argv[1]));
+		  printf("            n=%d\n", n);
+		  printf("       log(n)=%f\n", log(n));
+		  printf("      log2(n)=%f\n", log2(n));
+		  printf("       log(2)=%f\n", log(2));
+		  printf("      log2(2)=%f\n", log2(2));
+		  printf("          bit/%f\n", log(10) / log(2));
+		  printf("         bits/%f\n", log(n) / log(2));
 	  }
   }
 
   if (argc == 3){
 
-	  if (DEBUG2) {
-		  printf("argc=3\n");
-		  printf("depth:atoi(argv[1])=%d\n", atoi(argv[1]));
-		  printf("offset:atoi(argv[2])=%d\n", atoi(argv[2]));
+	  if (!strcmp(argv[2],"debug")){
+		  //printf("atoi(argv[0])=%d\n", atoi(argv[0]));
+		  printf("atoi(argv[0])=%s\n", argv[0]);
+		  printf("atoi(argv[1])=%d\n", atoi(argv[1]));
+		  printf("atoi(argv[2])=%s\n", argv[2]);
 	  }
 
 	  offset = atoi(argv[2]);
-	  /* 253 default number of pi digits */
-	  n = argc == 2 ? (atoi(argv[1]) + 3 + offset)/4 + 3 + offset : 253;
-	//n = argc == 2 ? (atoi(argv[1]) + 3)/4 + 3 : 253;
-	  if (DEBUG) {
-		  printf("n=%d\n", n);//exit(0);
-		  printf("offset=%d\n", offset);
-	  }
+	  n = argc == 2 ? (atoi(argv[1]) + 3 + offset)/4 + 3 + offset : 253; /* 253 default number of pi digits */
 	  n += offset;
-	  if (DEBUG) {
-		  printf("n += offset:%d\n", n);
-		  // printf("bits/%f\n", log2(n) / log2(2));// keep percision
-		  // printf("bits/%f\n", log2(atoi(argv[1])) / log2(2));// keep percision
-	  }
+
+	  if (DEBUG) { printf("n += offset:%d\n", n); }
   }
 
 if (argc == 4){
