@@ -4,6 +4,7 @@
 gnostr-pi:gnostr
 gnostr:
 	@gcc src/pi.c -o $@-pi || $(shell which $@-pi)
+	@rm -rf /usr/local/bin/$@-pi || $(shell which $@-pi)
 	@install ./$@-pi /usr/local/bin/ || $(shell which $@-pi)
 gcc:
 	@$@ src/pi.c -o pi-$@ || $(shell which $@)
