@@ -1,5 +1,5 @@
 /* Print pi to n decimal places (default 1000): pi n */
-
+#define VERSION "v0.0.7"
 #define DEBUG  0
 #define DEBUG2 0
 #define PRIMER 0
